@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>EZoApp</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob: filesystem:">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.2/normalize.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Export CSS  -->
+  <style>
+    html,body,div[data-role="page"],.ui-content{
+  width:100%;
+  height:100%;
+  padding:0;
+  margin:0;
+}
+div{
+ box-sizing:border-box; 
+}
+th{
+  background:#ddd;
+}
+.ui-content{
+  padding:10px;
+}
+div[data-role="header"],div[data-role="footer"]{
+  box-shadow:0 0 10px #000;
+}
+li{
+  margin-bottom:-9px!important;
+}
+li a{
+  height:36px;
+  line-height:28px!important;
+  margin-top:-1px!important;
+}
+#left-menu span{
+  width:100%;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  display:block;
+  color:#8cf;
+  font-size:20px;
+  font-weight:bold;
+}
+  </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    $(document).on("mobileinit", function () {
+      $.mobile.autoInitializePage = false;
+      $.mobile.hashListeningEnabled = false;
+    });
+
+    function mobileInitPage() {
+      $.mobile.hashListeningEnabled = true;
+      $.mobile.initializePage();
+    }
+  </script>
+  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!-- GK Loader use RequireJS to load module -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min.js"></script>
+  <!--Plug in GK-->
+  <script src="//ezoui.com/components/jquery.gk/jquery.gk.min.js"></script>
+  <!-- Load GK components -->
+  <script components="//ezoui.com/components/gk-jquerymobile/footer.html,//ezoui.com/components/gk-jquerymobile/content.html,//ezoui.com/components/gk-ext/google-sheets-table.html,//ezoui.com/components/gk-jquerymobile/button.html,//ezoui.com/components/gk-jquerymobile/page.html,//ezoui.com/components/gk-jquerymobile/navbtn.html,//ezoui.com/components/gk-jquerymobile/navbar.html,//ezoui.com/components/gk-jquerymobile/header.html"
+  callback="mobileInitPage" src="//ezoui.com/components/gk-loader/gk-loader.min.js"></script>
+  <!-- Uncomment the following to include cordova in your app project -->
+  <!-- <script src="//ezoui.com/platforms/android_or_ios/cordova.js"></script> -->
+  <!-- Export JS  -->
+  <script>
+    (function () {
+      $(document).on('pageshow', '#home', function () {
+        var table = $('#gk-825p76t').gk();
+        $('.ui-table-columntoggle-btn').css({
+          'display': 'none'
+        });
+        $('#left-menu a').on('click', function () {
+          $('#left-menu a,#footerBtn a').removeClass('ui-btn-active');
+          $('#footerBtn a').eq(0).addClass('ui-btn-active');
+          $(this).addClass('ui-btn-active');
+          var title = $(this).text();
+          $('h3').text(title + '  Category');
+          var scoreGid = $(this).attr('gid');
+          table.gid = scoreGid;
+          table.range = '';
+          table.query = '';
+          table.refresh();
+        });
+        $('#footerBtn a').on('click', function () {
+          var tableQuery = $(this).attr('query');
+          var tableRange = $(this).attr('range');
+          table.query = tableQuery;
+          table.range = tableRange;
+          table.refresh();
+        });
+      });
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- Page: home  -->
+  <div is="page" id="home" data-role="page" data-theme="a">
+    <div is="header" data-role="header" data-position="fixed" data-theme="b">
+      <h3>Fruits Category</h3> 
+      <a is="button" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-mini ui-corner-all" href="#left-menu">Button</a>
+    </div>
+    <div is="dragable" id="left-menu" data-role="panel" data-position="left" data-theme="b" data-position-fixed="false" data-display="overlay">
+      <span is="span">Product Category</span>
+      <a is="button" class="ui-btn ui-btn-active" data-theme="b" data-rel="close" gid="1990706053">5 stars</a>
+      <a is="button" class="ui-btn" data-theme="b" data-rel="close" gid="591325959">4 stars</a>
+      <a is="button" class="ui-btn" data-theme="b" data-rel="close" gid="2097705426">3 stars</a>
+      <a is="button" class="ui-btn" data-theme="b" data-rel="close" gid="6476160">2 stars & below</a>
+    </div>
+    <div is="content" role="main" class="ui-content">
+      <table is="google-sheets-table" id="gk-825p76t" key="10--un03i4mzaI3p-OIqGsacYN19PbWuwJiH-uU6fGyw" gid="0" headers="1"></table>
+    </div>
+    <div is="footer" data-position="fixed" data-role="footer">
+      <div is="navbar" data-role="navbar" style="padding:0; margin:0 0 -1px;">
+        <ul id="footerBtn">
+          <li is="navbtn">
+            <a data-theme="b" class="ui-btn-active ui-state-persist" query range>Top Rating</a>
+          </li>
+          <li is="navbtn">
+            <a data-theme="b" query="select * order by C ">Low Price First</a>
+          </li>
+          <li is="navbtn">
+            <a data-theme="b" query="select * order by C desc">High Price First</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
