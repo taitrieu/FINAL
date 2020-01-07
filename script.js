@@ -27,7 +27,7 @@ $('.addValue').on("click", function( event ) {
       contactsRef.push({
         name: $('#name').val().replace(/<[^>]*>/ig, ""),
         email: $('#email').val().replace(/<[^>]*>/ig, ""),
-        comment: $('#comment').val().replace(/<[^>]*>/ig, "")
+   
       })
       contactForm.reset();
     } else {
