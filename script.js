@@ -27,7 +27,10 @@ $('.addValue').on("click", function( event ) {
       contactsRef.push({
         name: $('#name').val().replace(/<[^>]*>/ig, ""),
         email: $('#email').val().replace(/<[^>]*>/ig, ""),
-   
+        location: {
+          comment: $('#comment').val().replace(/<[^>]*>/ig, "")
+        }
+      })
       })
       contactForm.reset();
     } else {
@@ -43,7 +46,7 @@ function contactHtmlFromObject(contact){
     html += '<div>';
       html += '<p class="lead">'+contact.name+'</p>';
       html += '<p>'+contact.email+'</p>';
-      html += '<p>'+contact.comment'</p>';
+      html += '<p>'+contact.location.comment'</p>';
     html += '</div>';
   html += '</li>';
   return html;
