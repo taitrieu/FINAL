@@ -48,6 +48,7 @@ function contactHtmlFromObject(contact){
     html += '<div>';
       html += '<p class="lead">'+contact.name+'</p>';
       html += '<p>'+contact.email+'</p>';
+      html += '<p>'+contact.comment'</p>';
       html += '<p><small title="'+contact.location.zip+'">'+contact.location.city+', '+contact.location.state+'</small></p>';
     html += '</div>';
   html += '</li>';
