@@ -1,12 +1,12 @@
 // file: script.js
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyAFzmOC13xBmUtrl5ufYIOZLKuRh0MiZog",
-    authDomain: "project-81145626879328846.firebaseapp.com",
-    databaseURL: "https://project-81145626879328846.firebaseio.com",
-    projectId: "project-81145626879328846",
-    storageBucket: "project-81145626879328846.appspot.com",
-    messagingSenderId: "178020861416"
+  apiKey: "AIzaSyAvHToVDiX6-8vxSml0rg9S80hIxjoEojw",
+    authDomain: "dec222019.firebaseapp.com",
+    databaseURL: "https://dec222019.firebaseio.com",
+    projectId: "dec222019",
+    storageBucket: "dec222019.appspot.com",
+    messagingSenderId: "592439968262"
 };
 firebase.initializeApp(config);
 
@@ -28,9 +28,10 @@ $('.addValue').on("click", function( event ) {
         name: $('#name').val().replace(/<[^>]*>/ig, ""),
         email: $('#email').val().replace(/<[^>]*>/ig, ""),
         location: {
-          comment: $('#comment').val().replace(/<[^>]*>/ig, "")
+          city: $('#city').val().replace(/<[^>]*>/ig, ""),
+          state: $('#state').val().replace(/<[^>]*>/ig, ""),
+          zip: $('#zip').val().replace(/<[^>]*>/ig, "")
         }
-      })
       })
       contactForm.reset();
     } else {
@@ -46,7 +47,7 @@ function contactHtmlFromObject(contact){
     html += '<div>';
       html += '<p class="lead">'+contact.name+'</p>';
       html += '<p>'+contact.email+'</p>';
-      html += '<p>'+contact.location.comment'</p>';
+      html += '<p><small title="'+contact.location.zip+'">'+contact.location.city+', '+contact.location.state+'</small></p>';
     html += '</div>';
   html += '</li>';
   return html;
